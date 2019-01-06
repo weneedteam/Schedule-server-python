@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # pkgs
     'rest_framework',
+    'djoser',
 
     # apps
     'holiday',
