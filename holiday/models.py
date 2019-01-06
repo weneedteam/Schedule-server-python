@@ -3,8 +3,11 @@ from django.db import models
 # Create your models here.
 class Holiday(models.Model):
     name = models.CharField(max_length=10)
-    year = models.IntegerField(max_length=4)
-    month = models.IntegerField(max_length=2)
-    day = models.IntegerField(max_length=2)
+    year = models.IntegerField()
+    month = models.IntegerField()
+    day = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
