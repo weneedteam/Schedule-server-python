@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     # apps
     'holiday',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +128,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 SKT_API_KEY = os.environ['SKT_API_KEY']
+
+AUTH_USER_MODEL = 'accounts.User'
