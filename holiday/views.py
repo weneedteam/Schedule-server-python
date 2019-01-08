@@ -47,20 +47,19 @@ def holiday_list(request):
         return Response(serializer_list)
     else:
         datas = Holiday.objects.filter(year=year)
-        # Todo: 이거 더 좋게 고칠 수 있음. 로직 구데기.
+        # Todo: 일단 돌아가긴 하는데 dict 형태로 따로 한번 빼는게 맞는지 확인
+
         data_list = []
 
         for data in datas:
-            print(data)
-
-            dat = {
+            json_data = {
                 'name': data.name,
                 'year': data.year,
                 'month': data.month,
                 'day': data.day,
             }
 
-            data_list.append(dat)
+            data_list.append(json_data)
 
         return Response({
             'holidays': data_list,
