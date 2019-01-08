@@ -50,7 +50,6 @@ def holiday_list(request):
         # Todo: 일단 돌아가긴 하는데 dict 형태로 따로 한번 빼는게 맞는지 확인
 
         data_list = []
-
         for data in datas:
             json_data = {
                 'name': data.name,
