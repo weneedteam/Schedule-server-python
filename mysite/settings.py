@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # pkgs
     'rest_framework',
+    'rest_framework.authtoken',
     'djoser',
 
     # apps
@@ -132,9 +133,16 @@ SKT_API_KEY = os.environ['SKT_API_KEY']
 
 AUTH_USER_MODEL = 'accounts.User'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
+}
 
 JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
-    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=1),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=3),
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=3),
     'JWT_ALLOW_REFRESH': True,
 }
