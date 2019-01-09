@@ -9,7 +9,7 @@ from .views import user_create
 router = DefaultRouter()
 
 urlpatterns = [
-    path('signup/', user_create, name="user-create"),
+    path('signup', user_create, name="user-create"),
 ]
 
 urlpatterns += router.urls
