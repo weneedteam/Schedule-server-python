@@ -11,7 +11,7 @@ router.register('holiday-list', HolidayViewSet)
 
 
 urlpatterns = [
-    path('test/', holiday_list, name='holiday_list'),
+    path('', holiday_list, name='holiday_list'),
 ]
 
 

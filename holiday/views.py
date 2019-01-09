@@ -24,8 +24,6 @@ def holiday_list(request):
         holidays = get_api_data(year)
         serializer_list = []
 
-        print(holidays)
-
         for holiday in holidays['results']:
             serializer = HolidaySerializer(data={
                 "name": holiday['name'],
