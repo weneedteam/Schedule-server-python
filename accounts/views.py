@@ -5,6 +5,8 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
 
+# from djoser.views import UserCreateView
+
 from djoser.conf import settings
 from djoser import signals
 from djoser.compat import get_user_email
@@ -16,7 +18,16 @@ class CreateModelMixin(object):
     """
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        # serializer.is_valid(raise_exception=True)
+
+        # serializer['']
+
+        if not serializer.is_valid():
+            return Response({
+                'status': 412,
+                'message': '테스트중'
+            })
+
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response({

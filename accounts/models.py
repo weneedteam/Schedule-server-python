@@ -49,6 +49,12 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
     #         'unique': _("A user with that username already exists."),
     #     },
     # )
+
+    LANGUAGE_CLASS = (
+        ('KO', 'Korean'),
+        ('EN', 'English'),
+    )
+
     user_name = models.CharField(_('user name'), max_length=30)
     nick_name = models.CharField(_('nick name'), max_length=30, unique=True)
     # first_name = models.CharField(_('first name'), max_length=30, blank=True)
@@ -69,6 +75,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
         ),
     )
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+    language = models.CharField(max_length=2, choices=LANGUAGE_CLASS, blank=False, null=False)
 
     objects = UserManager()
 
@@ -105,8 +112,4 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
 
 
 class User(AbstractUser):
-    LANGUAGE_CLASS = (
-        ('KO', 'Korean'),
-        ('EN', 'English'),
-    )
-    language = models.CharField(max_length=2, choices=LANGUAGE_CLASS)
+    pass
