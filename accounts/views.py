@@ -22,7 +22,8 @@ class CreateModelMixin(object):
 
         language = request.data['language']
 
-        print(language)
+        if not language:
+            language = "KR"
 
         if not serializer.is_valid():
             print(serializer.errors)
