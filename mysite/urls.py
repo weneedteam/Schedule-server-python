@@ -17,14 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 
 from rest_framework.authtoken.views import obtain_auth_token
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('djoser.urls')),
-    path('api/', include('djoser.urls.authtoken')),
-    path('api/', include('djoser.urls.jwt')),
+    path('api/accounts/', include('djoser.urls')),
+    path('api/accounts/', include('djoser.urls.authtoken')),
+    path('api/accounts/', include('djoser.urls.jwt')),
+    # path('', include('rest_framework.urls')),
     path('api-auth', include('rest_framework.urls')),
     path('api-token-auth/', obtain_auth_token),
 
     path('api/accounts/', include('accounts.urls')),
-    path('holiday/', include('holiday.urls')),
+    path('api/holiday/', include('holiday.urls')),
 ]
