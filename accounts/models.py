@@ -51,7 +51,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
     # )
 
     LANGUAGE_CLASS = (
-        ('KO', 'Korean'),
+        ('KR', 'Korean'),
         ('EN', 'English'),
     )
 
@@ -59,7 +59,8 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
     nick_name = models.CharField(_('nick name'), max_length=30, unique=True)
     # first_name = models.CharField(_('first name'), max_length=30, blank=True)
     # last_name = models.CharField(_('last name'), max_length=150, blank=True)
-    email = models.EmailField(_('email address'), blank=True, unique=True)
+    language = models.CharField(max_length=2, choices=LANGUAGE_CLASS)
+    email = models.EmailField(_('email address'), unique=True)
     birth = models.DateField()
     is_staff = models.BooleanField(
         _('staff status'),
@@ -75,13 +76,12 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
         ),
     )
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
-    language = models.CharField(max_length=2, choices=LANGUAGE_CLASS, blank=False, null=False)
 
     objects = UserManager()
 
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['user_name', 'nick_name', 'birth', ]
+    REQUIRED_FIELDS = ['user_name', 'nick_name', 'birth', 'language', ]
 
     class Meta:
         verbose_name = _('user')

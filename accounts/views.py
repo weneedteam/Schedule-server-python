@@ -20,16 +20,42 @@ class CreateModelMixin(object):
         serializer = self.get_serializer(data=request.data)
         # serializer.is_valid(raise_exception=True)
 
-        # serializer['']
+        language = request.data['language']
+
+        print(language)
 
         if not serializer.is_valid():
+            print(serializer.errors)
+
+            error_keys = serializer.errors.keys()
+
+            error_message = []
+
+            # print(len(error_keys))
+        
+            for x in error_keys:
+                # Todo: language별 작업 필요
+                if language == 'KR':
+                    message = "{} 항목 오류" .format(x)
+                    error_message.append(message)
+                elif language == 'EN':
+                    pass
+
+
             return Response({
                 'status': 412,
-                'message': '테스트중'
+                'message': error_message,
             })
 
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
+        
+        # Todo: language별 작업 필요
+        if language == 'KR':
+            success_message = '유저 생성 완료'
+        elif language == 'EN':
+            pass
+        
         return Response({
             'status': 201,
             'message': '유저 생성 완료',
