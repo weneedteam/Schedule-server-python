@@ -105,4 +105,8 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
 
 
 class User(AbstractUser):
-    pass
+    LANGUAGE_CLASS = (
+        ('KO', 'Korean'),
+        ('EN', 'English'),
+    )
+    language = models.CharField(max_length=2, choices=LANGUAGE_CLASS)
