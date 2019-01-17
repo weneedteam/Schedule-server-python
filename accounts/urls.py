@@ -6,8 +6,8 @@ from djoser.urls import urlpatterns
 
 from .views import user_create, NickNameViewSet
 
-router = DefaultRouter()
 
+router = DefaultRouter()
 router.register('nick-name', NickNameViewSet)
 
 urlpatterns = [
