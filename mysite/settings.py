@@ -147,3 +147,9 @@ JWT_AUTH = {
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=3),
     'JWT_ALLOW_REFRESH': True,
 }
+
+DJOSER = {
+    'SERIALIZERS': {
+        'user_registration': 'accounts.serializers.UserSerializer',
+    },
+}

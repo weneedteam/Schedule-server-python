@@ -1,9 +1,17 @@
+import base64
+
 from django.shortcuts import render
+
+from .models import User
+
+from .serializers import NickNameSerializer
 
 from rest_framework import permissions, status
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
+from rest_framework import viewsets
+from rest_framework.decorators import action
 
 # from djoser.views import UserCreateView
 
@@ -33,7 +41,8 @@ class CreateModelMixin(object):
             error_message = []
 
             # print(len(error_keys))
-        
+
+            # Todo: already exists 오류 못잡음
             for x in error_keys:
                 # Todo: language별 작업 필요
                 if language == 'KR':
@@ -47,6 +56,17 @@ class CreateModelMixin(object):
                 'status': 412,
                 'message': error_message,
             })
+        # else:
+            # print(serializer)
+            # print(serializer.data)
+            # print(serializer.data['password'])
+            # print(base64.b64encode('dlstjdwpfh'.encode()))
+            #
+            # serializer.data['password'] = base64.b64encode('dlstjdwpfh'.encode())
+            # print(serializer.data['password'])
+            # serializer.data['password'] = base64.b64decode((serializer.data['password'])).decode('utf-8')
+            # print(serializer.data['password'])
+
 
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
@@ -85,6 +105,8 @@ class UserCreateView(CreateAPIView):
     Use this endpoint to register new user.
     """
     serializer_class = settings.SERIALIZERS.user_create
+    # from .serializers import UserSerializer
+    # serializer_class = UserSerializer
     permission_classes = [permissions.AllowAny]
 
     def perform_create(self, serializer):
@@ -105,3 +127,24 @@ class UserCreate(UserCreateView):
     pass
 
 user_create = UserCreate.as_view()
+
+
+class NickNameViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = NickNameSerializer
+
+    @action(detail=False)
+    def nick_name_check(self, request):
+        q = request.GET.get('q', '')
+
+        if q:
+            nick_name_usage =User.objects.filter(nick_name=q)
+
+            serializer = self.get_serializer(nick_name_usage)
+
+            return Response(serializer.data)
+        else:
+            return Response({
+                'status': 406,
+                'error': '쿼리셋이 존재하지 않습니다. 쿼리셋을 포함해주세요.'
+            }, status=406)
