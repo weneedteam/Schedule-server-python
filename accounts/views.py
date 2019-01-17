@@ -134,15 +134,24 @@ class NickNameViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = NickNameSerializer
 
     @action(detail=False)
-    def nick_name_check(self, request):
+    def check(self, request):
         q = request.GET.get('q', '')
 
+        print(q)
+
         if q:
-            nick_name_usage =User.objects.filter(nick_name=q)
+            nick_name = User.objects.filter(nick_name=q)
 
-            serializer = self.get_serializer(nick_name_usage)
-
-            return Response(serializer.data)
+            if nick_name:
+                return Response({
+                    'status': 202,
+                    'message': '이 닉네임은 사용할 수 없습니다.'
+                }, status=202)
+            else:
+                return Response({
+                    'status': 200,
+                    'message': '이 닉네임은 사용 가능합니다.'
+                }, status=200)
         else:
             return Response({
                 'status': 406,

@@ -8,7 +8,7 @@ from .views import user_create, NickNameViewSet
 
 router = DefaultRouter()
 
-router.register('nick-name-check', NickNameViewSet)
+router.register('nick-name', NickNameViewSet)
 
 urlpatterns = [
     path('signup', user_create, name="user-create"),
