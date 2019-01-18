@@ -1,11 +1,11 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 
-# from rest_framework.authtoken.models import Token
+from .models import FriendRelation
 
 
 User = get_user_model()
 
 
 admin.site.register(User)
-# admin.site.register(Token)
+admin.site.register(FriendRelation)

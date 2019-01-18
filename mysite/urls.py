@@ -15,11 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponseRedirect
 
 from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('', lambda r: HttpResponseRedirect('api/accounts')),
+
     path('api/accounts/', include('djoser.urls')),
     path('api/accounts/', include('djoser.urls.authtoken')),
     path('api/accounts/', include('djoser.urls.jwt')),

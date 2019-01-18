@@ -59,7 +59,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
     nick_name = models.CharField(_('nick name'), max_length=30, unique=True)
     # first_name = models.CharField(_('first name'), max_length=30, blank=True)
     # last_name = models.CharField(_('last name'), max_length=150, blank=True)
-    language = models.CharField(max_length=2, choices=LANGUAGE_CLASS)
+    language = models.CharField(max_length=2, choices=LANGUAGE_CLASS, default="KR")
     email = models.EmailField(_('email address'), unique=True)
     birth = models.DateField()
     is_staff = models.BooleanField(
@@ -113,3 +113,12 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
 
 class User(AbstractUser):
     pass
+
+
+class FriendRelation(models.Model):
+    request_user = models.ForeignKey(User, on_delete=models.PROTECT, related_name='request_user')
+    response_user = models.ForeignKey(User, on_delete=models.PROTECT, related_name='response_user')
+    assent = models.IntegerField(blank=True, default=0)
+    assented_at = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
