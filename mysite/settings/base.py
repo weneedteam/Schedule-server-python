@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'holiday',
     'accounts',
     'schedule',
+    'friend',
 ]
 
 MIDDLEWARE = [
