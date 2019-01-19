@@ -2,9 +2,9 @@ import base64
 
 from django.shortcuts import render
 
-from .models import User
+from .models import User, FriendRelation
 
-from .serializers import NickNameSerializer
+from .serializers import NickNameSerializer, FriendRelationSerializer
 
 from rest_framework import permissions, status
 from rest_framework.generics import GenericAPIView
@@ -157,3 +157,8 @@ class NickNameViewSet(viewsets.ReadOnlyModelViewSet):
                 'status': 406,
                 'error': '쿼리셋이 존재하지 않습니다. 쿼리셋을 포함해주세요.'
             }, status=406)
+
+
+class FriendRelationViewSet(viewsets.ModelViewSet):
+    queryset = FriendRelation.objects.all()
+    serializer_class = FriendRelationSerializer

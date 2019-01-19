@@ -4,11 +4,12 @@ from rest_framework.routers import DefaultRouter
 
 from djoser.urls import urlpatterns
 
-from .views import user_create, NickNameViewSet
+from .views import user_create, NickNameViewSet, FriendRelationViewSet
 
 
 router = DefaultRouter()
 router.register('nick-name', NickNameViewSet)
+router.register('friend-relation', FriendRelationViewSet)
 
 urlpatterns = [
     path('signup', user_create, name="user-create"),
