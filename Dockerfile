@@ -13,6 +13,6 @@ ENV DATABASE_HOST playgillround.cwadawgcd2ch.ap-northeast-2.rds.amazonaws.com
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
 COPY . .
-RUN python manage.py migrate
+RUN python manage.py migrate --settings=mysite.settings.prod
 EXPOSE 8000
 CMD ["python", "manage.py", "runserver", "--settings=mysite.settings.prod", "0.0.0.0:8000"]
