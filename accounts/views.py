@@ -155,7 +155,7 @@ class NickNameViewSet(viewsets.ReadOnlyModelViewSet):
         else:
             return Response({
                 'status': 406,
-                'error': '쿼리셋이 존재하지 않습니다. 쿼리셋을 포함해주세요.'
+                'error': '쿼리셋이 존재하지 않습니다.'
             }, status=406)
 
 
