@@ -28,10 +28,24 @@ class FriendRelationViewSet(viewsets.ModelViewSet):
             data = serializer.validated_data
 
             print(data)
-
+            
+            # Todo: try except 구문으로 로직 최적화 시키기
             friend_request = FriendRelation.objects.filter(request_user=data['response_user'], response_user=data['request_user'])
+            before_request = FriendRelation.objects.filter(request_user=data['request_user'], response_user=data['response_user'])
 
-            print(friend_request)
+            if FriendRelation.objects.filter(request_user=data['request_user'], response_user=data['response_user'], assent=1) or FriendRelation.objects.filter(request_user=data['response_user'], response_user=data['request_user'], assent=1):
+                return Response({
+                    'status': 200,
+                    'message': "이미 친구 상태입니다."
+                }, status.HTTP_200_OK)
+
+            if before_request:
+                return Response({
+                    'status': 202,
+                    'message': "이미 친구 요청을 보냈습니다."
+                }, status.HTTP_202_ACCEPTED)
+
+            # print(friend_request)
 
             if friend_request:
                 friend_request = friend_request[0]
