@@ -1,11 +1,11 @@
 from django.contrib import admin
 
-from .models import FriendRelation
+from .models import FriendRequest
 
 
-class FriendRelationAdmin(admin.ModelAdmin):
-    list_display = ('request_user', 'response_user', 'assent', 'assented_at', )
+class FriendRequestAdmin(admin.ModelAdmin):
+    list_display = ('request_user', 'response_user', 'assent', )
     list_filter = ('request_user', 'response_user', )
 
 
-admin.site.register(FriendRelation, FriendRelationAdmin)
+admin.site.register(FriendRequest, FriendRequestAdmin)

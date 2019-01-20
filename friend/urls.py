@@ -1,10 +1,10 @@
 from rest_framework.routers import DefaultRouter
 
-from .views import FriendRelationViewSet
+from .views import FriendRequestViewSet
 
 
 router = DefaultRouter()
-router.register('relation', FriendRelationViewSet)
+router.register('request', FriendRequestViewSet)
 
 urlpatterns = [
 

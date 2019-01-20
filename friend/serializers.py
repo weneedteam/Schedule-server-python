@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from .models import FriendRelation
+from .models import FriendRequest
 
 
 class FriendRelationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = FriendRelation
+        model = FriendRequest
         fields = '__all__'

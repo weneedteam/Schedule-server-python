@@ -13,8 +13,7 @@ from rest_framework.settings import api_settings
 from rest_framework import viewsets
 from rest_framework.decorators import action
 
-# from djoser.views import UserCreateView
-
+from djoser.views import UserDeleteView, SetPasswordView, SetUsernameView, UserView
 from djoser.conf import settings
 from djoser import signals
 from djoser.compat import get_user_email
@@ -157,3 +156,27 @@ class NickNameViewSet(viewsets.ReadOnlyModelViewSet):
                 'status': 406,
                 'error': '쿼리셋이 존재하지 않습니다.'
             }, status=406)
+
+
+class UserDelete(UserDeleteView):
+    pass
+
+user_delete = UserDelete.as_view()
+
+
+class SetPassword(SetPasswordView):
+    pass
+
+set_password = SetPassword.as_view()
+
+
+class SetUsername(SetUsernameView):
+    pass
+
+set_username = SetUsername.as_view()
+
+
+class User(UserView):
+    pass
+
+user = User.as_view()

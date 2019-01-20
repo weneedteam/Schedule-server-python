@@ -22,16 +22,16 @@ from rest_framework.authtoken.views import obtain_auth_token
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('', lambda r: HttpResponseRedirect('api/accounts')),
+    path('', lambda r: HttpResponseRedirect('api/v1')),
 
-    path('api/accounts/', include('djoser.urls')),
-    path('api/accounts/', include('djoser.urls.authtoken')),
-    path('api/accounts/', include('djoser.urls.jwt')),
+    path('api/v1/', include('djoser.urls')),
+    path('api/v1/', include('djoser.urls.authtoken')),
+    path('api/v1/', include('djoser.urls.jwt')),
 
     path('api-auth', include('rest_framework.urls')),
     path('api-token-auth/', obtain_auth_token),
 
-    path('api/accounts/', include('accounts.urls')),
+    path('api/v1/', include('accounts.urls')),
     path('api/holiday/', include('holiday.urls')),
     path('api/friend/', include('friend.urls')),
 ]
