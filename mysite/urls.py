@@ -32,6 +32,6 @@ urlpatterns = [
     path('api-token-auth/', obtain_auth_token),
 
     path('api/v1/', include('accounts.urls')),
-    path('api/holiday/', include('holiday.urls')),
-    path('api/friend/', include('friend.urls')),
+    path('api/v1/holiday/', include('holiday.urls')),
+    path('api/v1/friend/', include('friend.urls')),
 ]
