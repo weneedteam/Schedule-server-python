@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.contrib.auth import get_user_model
 
 from .models import FriendRequest, Friend
 
@@ -7,6 +7,8 @@ from .serializers import FriendRequestSerializer, FriendSerializer
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 
+
+User = get_user_model()
 
 class FriendRequestViewSet(viewsets.ModelViewSet):
     queryset = FriendRequest.objects.all()
@@ -31,7 +33,7 @@ class FriendRequestViewSet(viewsets.ModelViewSet):
             if friend_request:
                 # friend_request = friend_request[0]
                 friend_request.delete()
-                Friend.objects.create(request_user=data['response_user'], response_user=data['request_user'])
+                friend = Friend.objects.create(request_user=data['response_user'], response_user=data['request_user'])
 
                 headers = self.get_success_headers(serializer.data)
 

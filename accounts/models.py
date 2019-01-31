@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, send_
 from django.utils.translation import gettext as _
 from django.utils import timezone
 
+from friend.models import Friend
+
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -62,6 +64,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
     language = models.CharField(max_length=2, choices=LANGUAGE_CLASS, default="KR")
     email = models.EmailField(_('email address'), unique=True)
     birth = models.DateField()
+    friends = models.ManyToManyField(Friend)
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,
@@ -78,7 +81,6 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
 
     objects = UserManager()
-
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['user_name', 'nick_name', 'birth', 'language', ]
