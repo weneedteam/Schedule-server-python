@@ -6,6 +6,6 @@ from .serializers import ScheduleSerializer
 from .models import Schedule
 
 
-class ScheduleCreateViewSet(viewsets.ModelViewSet):
+class ScheduleViewSet(viewsets.ModelViewSet):
     queryset = Schedule.objects.all()
     serializer_class = ScheduleSerializer
