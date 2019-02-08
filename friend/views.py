@@ -29,14 +29,22 @@ class FriendRequestViewSet(viewsets.ModelViewSet):
             data = serializer.validated_data
 
             try:
-                friend_request = FriendRequest.objects.filter(request_user=data['response_user'], response_user=data['request_user'])[0]
+                Friend.objects.get(Q(request_user=data['request_user'], response_user=data['response_user']) | Q(request_user=data['response_user'], response_user=data['request_user']))
+
+                return Response({
+                    'status': 200,
+                    'message': "이미 친구 상태입니다."
+                })
             except:
-                friend_request = None
+                try:
+                    friend_request = FriendRequest.objects.filter(request_user=data['response_user'], response_user=data['request_user'])[0]
+                except:
+                    friend_request = None
 
             if friend_request:
                 # friend_request = friend_request[0]
                 friend_request.delete()
-                friend = Friend.objects.create(request_user=data['response_user'], response_user=data['request_user'])
+                Friend.objects.create(request_user=data['response_user'], response_user=data['request_user'])
 
                 headers = self.get_success_headers(serializer.data)
 
@@ -45,13 +53,21 @@ class FriendRequestViewSet(viewsets.ModelViewSet):
                     'message': "친구 요청 수락"
                 }, status=status.HTTP_200_OK, headers=headers)
             else:
-                serializer.save()
-                headers = self.get_success_headers(serializer.data)
+                try:
+                    FriendRequest.objects.get(Q(request_user=data['request_user'], response_user=data['response_user']) | Q(request_user=data['response_user'], response_user=data['request_user']))
 
-                return Response({
-                    'status': 201,
-                    'message': "친구 요청 완료"
-                }, status=status.HTTP_201_CREATED, headers=headers)
+                    return Response({
+                        'status': 200,
+                        'message': "이미 친구 요청을 한 상태입니다."
+                    })
+                except:
+                    serializer.save()
+                    headers = self.get_success_headers(serializer.data)
+
+                    return Response({
+                        'status': 201,
+                        'message': "친구 요청 완료"
+                    }, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class FriendViewSet(viewsets.ModelViewSet):
