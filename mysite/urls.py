@@ -34,4 +34,5 @@ urlpatterns = [
     path('api/v1/', include('accounts.urls')),
     path('api/v1/holiday/', include('holiday.urls')),
     path('api/v1/friend/', include('friend.urls')),
+    path('api/v1/schedule/', include('schedule.urls')),
 ]
