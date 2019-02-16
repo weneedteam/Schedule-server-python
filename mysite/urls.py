@@ -19,10 +19,16 @@ from django.http import HttpResponseRedirect
 
 from rest_framework.authtoken.views import obtain_auth_token
 
+from rest_framework_swagger.views import get_swagger_view
+
+schema_view = get_swagger_view(title='Schedule API')
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', lambda r: HttpResponseRedirect('api/v1')),
+
+    path('api-doc/', schema_view),
 
     path('api/v1/', include('djoser.urls')),
     path('api/v1/', include('djoser.urls.authtoken')),
